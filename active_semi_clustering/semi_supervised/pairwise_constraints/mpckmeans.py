@@ -161,7 +161,7 @@ class MPCKMeans:
 
             # print('term_x', term_x, 'term_m', term_m, 'term_c', term_c)
 
-            A[d, d] = N * 1 / max(term_x + term_m + term_c, 1e-9)
+            A[d, d] = N * 1 / max(term_x + term_m + term_c, 1e-3)
 
         return A
 
