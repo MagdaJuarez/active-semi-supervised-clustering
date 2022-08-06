@@ -4,6 +4,7 @@ import scipy
 from active_semi_clustering.exceptions import EmptyClustersException
 from active_semi_clustering.farthest_first_traversal import weighted_farthest_first_traversal
 from .constraints import preprocess_constraints
+from scipy import linalg
 
 np.seterr('raise')
 
@@ -98,7 +99,7 @@ class MPCKMeans:
         return scipy.spatial.distance.mahalanobis(x, y, A) ** 2
 
     def _objective_fn(self, X, i, labels, cluster_centers, cluster_id, A, farthest, ml_graph, cl_graph, w):
-        term_d = self._dist(X[i], cluster_centers[cluster_id], A) - np.log(np.linalg.slogdet(A)) / np.log(2)  # FIXME is it okay that it might be negative?
+        term_d = self._dist(X[i], cluster_centers[cluster_id], A) - np.log(linalg.det(A)) / np.log(2)  # FIXME is it okay that it might be negative?
 
         def f_m(i, j, A):
             return self._dist(X[i], X[j], A)
