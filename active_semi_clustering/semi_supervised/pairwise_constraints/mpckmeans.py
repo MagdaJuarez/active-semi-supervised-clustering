@@ -42,8 +42,6 @@ class MPCKMeans:
 
             # Update metrics
             A = self._update_metrics(X, labels, cluster_centers, farthest, ml_graph, cl_graph, self.w)
-            
-            print('Matrix A: ', A)
 
             # Check for convergence
             cluster_centers_shift = (prev_cluster_centers - cluster_centers)
@@ -167,7 +165,7 @@ class MPCKMeans:
 
             # print('term_x', term_x, 'term_m', term_m, 'term_c', term_c)
 
-            A[d, d] =  1 / max(term_x + term_m + term_c, 1e-3)
+            A[d, d] =  N * 1 / max(term_x + term_m + term_c, 1e-9)
 
         return A
 
